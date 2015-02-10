@@ -1351,3 +1351,17 @@ class TicketDependency(models.Model):
         unique_together = ('ticket', 'depends_on')
         verbose_name = _('Ticket dependency')
         verbose_name_plural = _('Ticket dependencies')
+
+def user_unicode(self):
+    c = []
+    if self.first_name:
+        c.append(self.first_name)
+    if self.last_name:
+        c.append(self.last_name)
+    if c:
+        return ' '.join(c)
+    else:
+        return self.username
+from django.contrib.auth.models import User
+User.add_to_class('__unicode__', user_unicode)
+
