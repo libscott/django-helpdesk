@@ -351,19 +351,19 @@ class PublicTicketForm(CustomFieldMixin, forms.Form):
             'details we may need to address your query.'),
         )
 
-    priority = forms.ChoiceField(
-        choices=Ticket.PRIORITY_CHOICES,
-        required=True,
-        initial='3',
-        label=_('Urgency'),
-        help_text=_('Please select a priority carefully.'),
-        )
+    # priority = forms.ChoiceField(
+    #     choices=Ticket.PRIORITY_CHOICES,
+    #     required=True,
+    #     initial='3',
+    #     label=_('Urgency'),
+    #     help_text=_('Please select a priority carefully.'),
+    #     )
 
-    due_date = forms.DateTimeField(
-        widget=extras.SelectDateWidget,
-        required=False,
-        label=_('Due on'),
-        )
+    # due_date = forms.DateTimeField(
+    #     widget=extras.SelectDateWidget,
+    #     required=False,
+    #     label=_('Due on')
+    #     )
 
     attachment = forms.FileField(
         required=False,
@@ -399,8 +399,8 @@ class PublicTicketForm(CustomFieldMixin, forms.Form):
             status = Ticket.OPEN_STATUS,
             queue = q,
             description = self.cleaned_data['body'],
-            priority = self.cleaned_data['priority'],
-            due_date = self.cleaned_data['due_date'],
+            #priority = self.cleaned_data['priority'],
+            #due_date = self.cleaned_data['due_date'],
             )
 
         t.save()

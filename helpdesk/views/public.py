@@ -55,6 +55,10 @@ def homepage(request):
         if queue:
             initial_data['queue'] = queue.id
 
+        tmp = request.GET.get('mid', None)
+        if tmp:
+           initial_data['custom_model_id'] = tmp
+
         if request.user.is_authenticated() and request.user.email:
             initial_data['submitter_email'] = request.user.email
 
