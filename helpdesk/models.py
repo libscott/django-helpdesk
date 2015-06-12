@@ -1373,3 +1373,24 @@ def user_unicode(self):
 from django.contrib.auth.models import User
 User.add_to_class('__unicode__', user_unicode)
 
+
+class QueueMembership(models.Model):
+    """
+    Used to restrict staff members to certain queues only
+    """
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('User'),
+        )
+
+    queues = models.ManyToManyField(
+        Queue,
+        verbose_name=_('Authorized Queues'),
+        )
+
+    def __unicode__(self):
+        return '%s authorized for queues %s' % (self.user, ", ".join(self.queues.values_list('title', flat=True)))
+
+    class Meta:
+        verbose_name = _('Queue Membership')
+        verbose_name_plural = _('Queue Memberships')
