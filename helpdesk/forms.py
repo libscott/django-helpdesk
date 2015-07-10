@@ -30,6 +30,8 @@ from helpdesk.lib import send_templated_mail, safe_template_context
 from helpdesk.models import Ticket, Queue, FollowUp, Attachment, IgnoreEmail, TicketCC, CustomField, TicketCustomFieldValue, TicketDependency
 from helpdesk import settings as helpdesk_settings
 
+from captcha.fields import ReCaptchaField
+
 class CustomFieldMixin(object):
     """
     Mixin that provides a method to turn CustomFields into an actual field
@@ -373,6 +375,8 @@ class PublicTicketForm(CustomFieldMixin, forms.Form):
         help_text=_('You can attach a file such as a document or screenshot to this ticket.'),
         max_length=1000,
         )
+
+    captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         """
