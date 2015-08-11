@@ -12,13 +12,13 @@
 <link rel='stylesheet' href='{% static "helpdesk/helpdesk-extend.css" %}' type='text/css' />
 {% block helpdesk_head %}{% endblock %}
 </head>
-<body id="helpdesk-body">
+<body id="helpdesk-body" style="padding-top: 30px;">
 <div id='container' class="container">
     <div id='header' class="row">
         <!-- Put your logo here if necessary: -->
         <!-- <img class="brand pull-right" src="/media/logo.png"> -->
-        <h1>{% trans "ICGenealogy Feedback" %}</h1>
-        {% include "helpdesk/navigation.html" %}
+        <h1 style="margin-bottom: 25px;">{% trans "ICGenealogy Feedback" %}</h1>
+        
     </div>
     <div id='body' class="row">
 {% block helpdesk_body %}{% endblock %}
