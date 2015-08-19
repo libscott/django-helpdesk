@@ -14,18 +14,10 @@
 </head>
 <body id="helpdesk-body" style="padding-top: 30px;">
 <div id='container' class="container">
-    <div id='header' class="row">
-        <!-- Put your logo here if necessary: -->
-        <!-- <img class="brand pull-right" src="/media/logo.png"> -->
-        <h1 style="margin-bottom: 25px;">{% trans "ICGenealogy Feedback" %}</h1>
-        
-    </div>
     <div id='body' class="row">
 {% block helpdesk_body %}{% endblock %}
     </div>
-    <div id='footer' class="row">
-        <p>{% include "helpdesk/attribution.html" %}</p>
-    </div>
+    <p style="font-size:.8em;">{% include "helpdesk/attribution.html" %}</p>
 </div>{% include "helpdesk/debug.html" %}
 </body>
 </html>

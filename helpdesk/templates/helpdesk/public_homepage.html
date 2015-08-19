@@ -22,11 +22,11 @@
 {% endif %}
 
 {% if helpdesk_settings.HELPDESK_SUBMIT_A_TICKET_PUBLIC %}
-<div class="col-xs-6">
+<div class="col-md-6">
 <div class="panel panel-default">
 
 <div class="panel-body">
-    <h2 name='submit'>{% trans "Submit a Ticket" %}</h2>
+    <h2 name='submit'>{% trans "Submit a new query" %}</h2>
 <p>{% trans "All fields are required." %} {% trans "Please provide as descriptive a title and description as possible." %}</p>
 
 <form role="form" method='post' action='./#submit' enctype='multipart/form-data'>
