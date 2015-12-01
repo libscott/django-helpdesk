@@ -150,7 +150,7 @@ def process_queue(q, quiet=False):
                 ticket = ticket_from_message(message=data[0][1], queue=q, quiet=quiet)
                 if ticket:
                     server.store(num, '+FLAGS', '\\Deleted')
-        
+
         server.expunge()
         server.close()
         server.logout()
@@ -286,7 +286,7 @@ def ticket_from_message(message, queue, quiet):
     if t.status == Ticket.REOPENED_STATUS:
         f.new_status = Ticket.REOPENED_STATUS
         f.title = _('Ticket Re-Opened by E-Mail Received from %(sender_email)s' % {'sender_email': sender_email})
-    
+
     f.save()
 
     if not quiet:
@@ -365,7 +365,31 @@ def ticket_from_message(message, queue, quiet):
                 fail_silently=True,
                 )
 
+    add_cced_addresses(t, message)
+
     return t
+
+
+def add_cced_addresses(ticket, message):
+    from helpdesk.models import TicketCC
+    from email.utils import getaddresses
+    # Add extra cc'd users
+    # C
+    emails = set([ticket.submitter_email])
+    emails.update(Queue.objects.values_list('email_address', flat=True))
+    for cc in ticket.ticketcc_set.all():
+        if cc.user:
+            emails.add(cc.user.email)
+        else:
+            emails.add(cc.email)
+
+    senders = message.get_all('to', []) + message.get_all('cc', [])
+    for _, email in getaddresses(senders):
+        if email and email not in emails:
+            cc = TicketCC(ticket=ticket, email=email,
+                          can_view=True, can_update=True)
+            cc.save()
+            emails.add(email)
 
 
 if __name__ == '__main__':
